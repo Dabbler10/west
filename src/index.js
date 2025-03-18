@@ -38,8 +38,8 @@ function getCreatureDescription(card) {
 
 
 class Duck extends Creature{
-    constructor(){
-        super('Мирная утка',2,'sheriff.png');    
+    constructor(name = 'Мирная утка', maxPower = 2, image = 'sheriff.png'){
+        super(name,maxPower,image);    
     }
     
     quacks() { 
@@ -52,8 +52,14 @@ class Duck extends Creature{
 }
 
 class Dog extends Creature{
-    constructor(){
-        super('Пес-бандит',3,'bandit.png');
+    constructor(name = 'Пес-бандит',maxPower = 3, image = 'bandit.png'){
+        super(name,maxPower,image);
+    }
+}
+
+class Trasher extends Dog{
+    constructor(name = 'Громила',maxPower = 5,image = 'femboy.png'){
+        super(name,maxPower,image);
     }
 }
 
