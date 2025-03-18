@@ -61,8 +61,16 @@ class Trasher extends Dog{
     constructor(name = 'Громила',maxPower = 5,image = 'femboy.png'){
         super(name,maxPower,image);
     }
+    modifyTakenDamage(value, fromCard, gameContext, continuation){
+        this.view.signalAbility(() => super.takeDamage(value - 1,fromCard,gameContext,continuation));
+        continuation(value);
+    }
+    getDescription(){
+        return [
+            getInheritanceDescription(this)
+        ];
+    }
 }
-
 
 // Колода Шерифа, нижнего игрока.
 const seriffStartDeck = [
@@ -74,7 +82,7 @@ const seriffStartDeck = [
 
 // Колода Бандита, верхнего игрока.
 const banditStartDeck = [
-    new Dog(),
+    new Trasher(),
 ];
 
 
