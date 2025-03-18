@@ -63,6 +63,27 @@ class Trasher extends Dog{
     }
 }
 
+class Gatling extends Creature{
+    constructor(name = "Гатлинг", power = 6) {
+        super(name, power, null);
+    }
+
+    attack(gameContext, continuation) {
+        const taskQueue = new TaskQueue();
+        const {currentPlayer, oppositePlayer, position, updateView} = gameContext;
+        for (let i = 0; i < oppositePlayer.table.length; i++) {
+            taskQueue.push(onDone => this.view.showAttack(onDone));
+            taskQueue.push(onDone => {
+                const oppositeCard = oppositePlayer.table[i];
+                if (oppositeCard) {
+                    this.dealDamageToCreature(2, oppositeCard, gameContext, onDone);
+                }
+            });
+        }
+        taskQueue.continueWith(continuation)
+    }
+}
+
 
 // Колода Шерифа, нижнего игрока.
 const seriffStartDeck = [
@@ -75,6 +96,7 @@ const seriffStartDeck = [
 // Колода Бандита, верхнего игрока.
 const banditStartDeck = [
     new Dog(),
+    new Gatling(),
 ];
 
 
